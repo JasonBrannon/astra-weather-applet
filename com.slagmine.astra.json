@@ -1,0 +1,47 @@
+{
+  "id": "com.slagmine.astra",
+  "runtime": "org.freedesktop.Platform",
+  "runtime-version": "24.08",
+  "sdk": "org.freedesktop.Sdk",
+  "sdk-extensions": [
+    "org.freedesktop.Sdk.Extension.rust-stable"
+  ],
+  "command": "astra",
+  "finish-args": [
+    "--share=network",
+    "--share=ipc",
+    "--socket=wayland",
+    "--device=dri",
+    "--filesystem=xdg-config/cosmic:rw",
+    "--talk-name=com.system76.CosmicSettingsDaemon",
+    "--talk-name=org.freedesktop.secrets"
+  ],
+  "build-options": {
+    "append-path": "/usr/lib/sdk/rust-stable/bin",
+    "env": {
+      "CARGO_HOME": "/run/build/astra/cargo"
+    }
+  },
+  "modules": [
+    {
+      "name": "astra",
+      "buildsystem": "simple",
+      "build-commands": [
+        "cargo --offline fetch --manifest-path Cargo.toml",
+        "cargo --offline build --release",
+        "install -Dm755 ./target/release/astra -t /app/bin/",
+        "install -Dm644 ./resources/com.slagmine.astra.desktop -t /app/share/applications/",
+        "install -Dm644 ./resources/com.slagmine.astra.metainfo.xml -t /app/share/metainfo/",
+        "install -Dm644 ./resources/icons/hicolor/scalable/apps/com.slagmine.astra.png /app/share/icons/hicolor/scalable/apps/com.slagmine.astra.png"
+      ],
+      "sources": [
+        {
+          "type": "git",
+          "url": "https://github.com/JasonBrannon/astra-weather-applet",
+          "branch": "master"
+        },
+        "cargo-sources.json"
+      ]
+    }
+  ]
+}

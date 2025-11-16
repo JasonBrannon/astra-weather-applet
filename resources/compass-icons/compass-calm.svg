@@ -1,0 +1,10 @@
+<svg viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="50" cy="50" r="45" fill="none" stroke="#ddd" stroke-width="2"/>
+  <!-- Center dot indicating calm/no wind -->
+  <circle cx="50" cy="50" r="8" fill="#95a5a6" stroke="#7f8c8d" stroke-width="1.5"/>
+  <!-- Optional: Small compass points -->
+  <circle cx="50" cy="15" r="2" fill="#bdc3c7"/>  <!-- N -->
+  <circle cx="85" cy="50" r="2" fill="#bdc3c7"/>  <!-- E -->
+  <circle cx="50" cy="85" r="2" fill="#bdc3c7"/>  <!-- S -->
+  <circle cx="15" cy="50" r="2" fill="#bdc3c7"/>  <!-- W -->
+</svg>

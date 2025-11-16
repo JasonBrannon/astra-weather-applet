@@ -1,0 +1,35 @@
+[Desktop Entry]
+Name=Astra Weather
+Name[de]=Astra Wetter
+Name[es]=Astra Meteorológica
+Name[gd]=Astra Aimsir
+Name[ja]=Astra 天気
+
+Comment=Real-time weather applet for COSMIC Desktop with Tempest Weather Station integration
+Comment[de]=Echtzeit-Wetter-Applet für COSMIC Desktop mit Tempest Wetterstation-Integration
+Comment[es]=Applet meteorológico en tiempo real para COSMIC Desktop con integración de estación meteorológica Tempest
+Comment[gd]=Applet aimsir fìor-ùine airson COSMIC Desktop le amalachadh stèisean aimsir Tempest
+Comment[ja]=Tempest気象ステーション統合によるCOSMICデスクトップ用リアルタイム天気アプレット
+
+Type=Application
+Icon=com.slagmine.astra
+Exec=astra
+Terminal=false
+StartupNotify=false
+NoDisplay=true
+
+# Categories and keywords for discoverability
+Categories=Utility;Network;COSMIC;
+Keywords=COSMIC;Weather;Tempest;WeatherFlow;Forecast;Lightning;Panel;Applet;
+Keywords[de]=COSMIC;Wetter;Tempest;WeatherFlow;Vorhersage;Blitz;Panel;Applet;
+Keywords[es]=COSMIC;Tiempo;Tempestad;WeatherFlow;Pronóstico;Relámpago;Panel;Applet;
+Keywords[gd]=COSMIC;Aimsir;Tempest;WeatherFlow;Ro-aithris;Dealanach;Panail;Applet;
+Keywords[ja]=COSMIC;天気;Tempest;WeatherFlow;予報;雷;パネル;アプレット;
+
+# Required for COSMIC applets
+X-CosmicApplet=true
+X-CosmicHoverPopup=Auto
+StartupWMClass=com.slagmine.astra
+
+# Flatpak-specific
+X-Flatpak-RenamedFrom=tempest.desktop;

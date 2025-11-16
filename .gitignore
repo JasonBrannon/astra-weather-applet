@@ -1,0 +1,48 @@
+# Build artifacts
+.cargo/
+*.pdb
+**/*.rs.bk
+debug/
+target/
+vendor/
+vendor.tar
+
+# Debian packaging
+debian/*
+!debian/changelog
+!debian/control
+!debian/copyright
+!debian/install
+!debian/rules
+!debian/source
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Test and debug files
+*.log
+
+# Environment and personal data
+environment/
+
+# Documentation drafts
+*_DRAFT.md
+docs/
+
+# SBOM files (generated on demand)
+sbom.spdx.json
+sbom.cdx.json
+sbom*.spdx.json
+sbom*.cdx.json
+*.sbom.json
+
+# Flatpak build files (generated on demand)
+cargo-sources.json
+.flatpak-builder/
+build-dir/
+repo/
