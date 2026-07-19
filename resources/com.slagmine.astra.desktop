@@ -19,7 +19,7 @@ StartupNotify=false
 NoDisplay=true
 
 # Categories and keywords for discoverability
-Categories=Utility;Network;COSMIC;
+Categories=Utility;Network;
 Keywords=COSMIC;Weather;Tempest;WeatherFlow;Forecast;Lightning;Panel;Applet;
 Keywords[de]=COSMIC;Wetter;Tempest;WeatherFlow;Vorhersage;Blitz;Panel;Applet;
 Keywords[es]=COSMIC;Tiempo;Tempestad;WeatherFlow;Pronóstico;Relámpago;Panel;Applet;
@@ -30,6 +30,3 @@ Keywords[ja]=COSMIC;天気;Tempest;WeatherFlow;予報;雷;パネル;アプレッ
 X-CosmicApplet=true
 X-CosmicHoverPopup=Auto
 StartupWMClass=com.slagmine.astra
-
-# Flatpak-specific
-X-Flatpak-RenamedFrom=tempest.desktop;

@@ -9,7 +9,7 @@ use std::collections::HashMap;
 use std::sync::OnceLock;
 
 #[derive(RustEmbed)]
-#[folder = "resources/icons/hicolor/scalable/apps/"]
+#[folder = "resources/icons/hicolor/128x128/apps/"]
 struct BrandingAssets;
 
 #[derive(RustEmbed)]

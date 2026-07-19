@@ -135,14 +135,17 @@ ls /app/share/applications/
 
 ## Submission
 
-**COSMIC Flatpak (primary):**
-1. Fork [pop-os/cosmic-flatpak](https://github.com/pop-os/cosmic-flatpak)
-2. Create `app/com.slagmine.astra/`, add manifest + cargo-sources.json
-3. Test: `just build com.slagmine.astra`
-4. PR with manifest, cargo-sources.json, description, screenshots
-5. COSMIC Flatpak hosts "applets and other flatpaks for COSMIC that are not suitable for upload to Flathub"
+See **[FLATHUB_SUBMISSION.md](FLATHUB_SUBMISSION.md)** for the full, verified process. Short version:
 
-**Flathub (alternative):** Follow [submission guidelines](https://docs.flathub.org/docs/for-app-authors/submission) - Note that this applet requires COSMIC Desktop to function as a panel applet
+**COSMIC Flatpak (primary — this is where all panel applets are distributed):**
+1. Tag a release; pin the manifest source to that tag/commit (not a branch)
+2. Fork [pop-os/cosmic-flatpak](https://github.com/pop-os/cosmic-flatpak)
+3. Create `app/com.slagmine.astra/`, add manifest + cargo-sources.json
+4. Test: `just build com.slagmine.astra`, then open a PR
+
+**Flathub (currently not viable for panel applets):** applets require `NoDisplay=true`, which fails the Flathub linter's `desktop-file-is-nodisplay` check with no granted exceptions to date — details and the app-ID/verification caveats are in [FLATHUB_SUBMISSION.md](FLATHUB_SUBMISSION.md).
+
+**COSMIC Store visibility:** the Applets section only lists apps whose metainfo declares `<provides><id>com.system76.CosmicApplet</id></provides>`.
 
 **Resources:** [Flatpak Docs](https://docs.flatpak.org/en/latest/) | [AppStream Spec](https://www.freedesktop.org/software/appstream/docs/)
 

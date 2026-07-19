@@ -20,8 +20,7 @@ metainfo-dst := clean(rootdir / prefix) / 'share' / 'metainfo' / metainfo
 icons-src := 'resources' / 'icons' / 'hicolor'
 icons-dst := clean(rootdir / prefix) / 'share' / 'icons' / 'hicolor'
 
-icon-png-src := icons-src / 'scalable' / 'apps' / 'com.slagmine.astra.png'
-icon-png-dst := icons-dst / 'scalable' / 'apps' / appid + '.png'
+icon-sizes := '128 256 512'
 
 # Default recipe which runs `just build-release`
 default: build-release
@@ -113,17 +112,24 @@ run *args:
 
 # Installs files
 install:
+    #!/usr/bin/env bash
     killall astra 2>/dev/null || true
     install -Dm0755 {{bin-src}} {{bin-dst}}
     install -Dm0644 {{desktop-src}} {{desktop-dst}}
     install -Dm0644 {{metainfo-src}} {{metainfo-dst}}
-    install -Dm0644 {{icon-png-src}} {{icon-png-dst}}
-    gtk-update-icon-cache -f -t {{clean(rootdir / prefix) / 'share' / 'icons' / 'hicolor'}} 2>/dev/null || true
+    for size in {{icon-sizes}}; do
+        install -Dm0644 "{{icons-src}}/${size}x${size}/apps/{{appid}}.png" "{{icons-dst}}/${size}x${size}/apps/{{appid}}.png"
+    done
+    gtk-update-icon-cache -f -t {{icons-dst}} 2>/dev/null || true
 
 # Uninstalls installed files
 uninstall:
+    #!/usr/bin/env bash
     killall astra 2>/dev/null || true
-    rm -f {{bin-dst}} {{desktop-dst}} {{icon-png-dst}}
+    rm -f {{bin-dst}} {{desktop-dst}} {{metainfo-dst}}
+    for size in {{icon-sizes}}; do
+        rm -f "{{icons-dst}}/${size}x${size}/apps/{{appid}}.png"
+    done
 
 # Uninstalls everything including config, cache, and keyring
 uninstall-all: uninstall

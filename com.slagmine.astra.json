@@ -1,7 +1,7 @@
 {
   "id": "com.slagmine.astra",
   "runtime": "org.freedesktop.Platform",
-  "runtime-version": "24.08",
+  "runtime-version": "25.08",
   "sdk": "org.freedesktop.Sdk",
   "sdk-extensions": [
     "org.freedesktop.Sdk.Extension.rust-stable"
@@ -32,13 +32,15 @@
         "install -Dm755 ./target/release/astra -t /app/bin/",
         "install -Dm644 ./resources/com.slagmine.astra.desktop -t /app/share/applications/",
         "install -Dm644 ./resources/com.slagmine.astra.metainfo.xml -t /app/share/metainfo/",
-        "install -Dm644 ./resources/icons/hicolor/scalable/apps/com.slagmine.astra.png /app/share/icons/hicolor/scalable/apps/com.slagmine.astra.png"
+        "install -Dm644 ./resources/icons/hicolor/128x128/apps/com.slagmine.astra.png /app/share/icons/hicolor/128x128/apps/com.slagmine.astra.png",
+        "install -Dm644 ./resources/icons/hicolor/256x256/apps/com.slagmine.astra.png /app/share/icons/hicolor/256x256/apps/com.slagmine.astra.png",
+        "install -Dm644 ./resources/icons/hicolor/512x512/apps/com.slagmine.astra.png /app/share/icons/hicolor/512x512/apps/com.slagmine.astra.png"
       ],
       "sources": [
         {
           "type": "git",
           "url": "https://github.com/JasonBrannon/astra-weather-applet",
-          "branch": "master"
+          "branch": "main"
         },
         "cargo-sources.json"
       ]

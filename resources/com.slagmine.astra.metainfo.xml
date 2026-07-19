@@ -3,30 +3,31 @@
   <id>com.slagmine.astra</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
-  <project_group>COSMIC</project_group>
-  <developer_name>Jason Brannon</developer_name>
+  <developer id="com.slagmine">
+    <name>Jason Brannon</name>
+  </developer>
   <update_contact>jason@jasonbrannon.com</update_contact>
 
   <name>Astra Weather</name>
-  <summary>Real-time weather applet for COSMIC Desktop with Tempest Weather Station integration</summary>
+  <summary>Live weather from your Tempest station</summary>
 
   <description>
     <p>
-      Astra Weather Applet integrates with WeatherFlow Tempest Weather Stations to provide
+      Astra Weather integrates with WeatherFlow Tempest Weather Stations to provide
       real-time weather data, lightning detection, and comprehensive forecasts directly in
       your COSMIC Desktop panel.
     </p>
     <p>Features:</p>
     <ul>
-      <li>Real-time WebSocket updates - Live weather data every 2-3 seconds</li>
+      <li>Real-time updates - live weather data every few seconds</li>
       <li>Lightning, high-wind, and rain alerts with desktop notifications</li>
-      <li>Multi-day forecasts - 7-day hourly (240 cards) and 10-day daily forecasts</li>
-      <li>Multiple station support - Manage and switch between Tempest stations</li>
-      <li>5 languages - English, German, Spanish, Scottish Gaelic, Japanese (100% synchronized)</li>
-      <li>6 unit systems - Temperature, wind speed, pressure, precipitation, distance, time</li>
-      <li>Station health monitoring - Real-time connection status with color-coded indicators</li>
-      <li>Secure API key storage - System keyring with automatic fallback</li>
-      <li>Color weather icons - 11 bundled icons with day/night variants</li>
+      <li>Multi-day forecasts - 7-day hourly and 10-day daily forecasts</li>
+      <li>Multiple station support - manage and switch between Tempest stations</li>
+      <li>Available in English, German, Spanish, Scottish Gaelic, and Japanese</li>
+      <li>Configurable units for temperature, wind speed, pressure, precipitation, distance, and time</li>
+      <li>Station health monitoring with color-coded connection status</li>
+      <li>Secure API key storage in the system keyring</li>
+      <li>Color weather icons with day and night variants</li>
     </ul>
     <p>
       Note: This applet requires a WeatherFlow Tempest Weather Station and API key to function.
@@ -36,8 +37,8 @@
   <url type="homepage">https://github.com/JasonBrannon/astra-weather-applet</url>
   <url type="vcs-browser">https://github.com/JasonBrannon/astra-weather-applet</url>
   <url type="bugtracker">https://github.com/JasonBrannon/astra-weather-applet/issues</url>
-  <url type="contribute">https://github.com/JasonBrannon/astra-weather-applet/blob/master/CONTRIBUTING.md</url>
-  <url type="help">https://github.com/JasonBrannon/astra-weather-applet/blob/master/FEATURES.md</url>
+  <url type="contribute">https://github.com/JasonBrannon/astra-weather-applet/blob/main/CONTRIBUTING.md</url>
+  <url type="help">https://github.com/JasonBrannon/astra-weather-applet/blob/main/FEATURES.md</url>
 
   <content_rating type="oars-1.1" />
 
@@ -50,49 +51,49 @@
 
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JasonBrannon/astra-weather-applet/master/screenshots/3-Hourly-Daily-Forecasts.png</image>
-      <caption>7-day hourly forecast with 240 cards, color weather icons, and automatic day/night variants</caption>
+      <image>https://raw.githubusercontent.com/JasonBrannon/astra-weather-applet/main/screenshots/3-Hourly-Daily-Forecasts.png</image>
+      <caption>7-day hourly forecast with color weather icons and automatic day/night variants</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/JasonBrannon/astra-weather-applet/master/screenshots/4-Live-Weather-View.png</image>
-      <caption>Real-time weather conditions from your Tempest station with WebSocket updates every 2-3 seconds</caption>
+      <image>https://raw.githubusercontent.com/JasonBrannon/astra-weather-applet/main/screenshots/4-Live-Weather-View.png</image>
+      <caption>Real-time weather conditions from your Tempest station</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/JasonBrannon/astra-weather-applet/master/screenshots/2-Active-Weather-Station.png</image>
-      <caption>Station health monitoring with REST API and WebSocket connection status</caption>
+      <image>https://raw.githubusercontent.com/JasonBrannon/astra-weather-applet/main/screenshots/2-Active-Weather-Station.png</image>
+      <caption>Station health monitoring with connection status</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/JasonBrannon/astra-weather-applet/master/screenshots/5-Cosmic-Desktop-Alerts.png</image>
+      <image>https://raw.githubusercontent.com/JasonBrannon/astra-weather-applet/main/screenshots/5-Cosmic-Desktop-Alerts.png</image>
       <caption>Desktop notifications for lightning strikes, rain events, and high winds</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/JasonBrannon/astra-weather-applet/master/screenshots/9-Panel-Temp-and-Wind.png</image>
+      <image>https://raw.githubusercontent.com/JasonBrannon/astra-weather-applet/main/screenshots/9-Panel-Temp-and-Wind.png</image>
       <caption>Compact panel display with temperature, weather icon, and wind direction</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/JasonBrannon/astra-weather-applet/master/screenshots/7-Applet-Settings-Options.png</image>
-      <caption>Comprehensive unit preferences - 6 unit types with multiple options</caption>
+      <image>https://raw.githubusercontent.com/JasonBrannon/astra-weather-applet/main/screenshots/7-Applet-Settings-Options.png</image>
+      <caption>Comprehensive unit preferences with multiple options per unit type</caption>
     </screenshot>
   </screenshots>
 
   <releases>
     <release version="1.0.0" date="2025-11-16">
       <description>
-        <p>Initial release of Astra Weather Applet for COSMIC Desktop</p>
+        <p>Initial release of Astra Weather for COSMIC Desktop</p>
         <ul>
-          <li>Real-time WebSocket integration with Tempest Weather Stations</li>
+          <li>Real-time updates from Tempest Weather Stations</li>
           <li>Lightning detection with desktop notifications and visual alerts</li>
           <li>7-day hourly and 10-day daily forecasts with color icons</li>
           <li>Multiple station support with health monitoring</li>
-          <li>5 fully synchronized languages (en, de, es, gd, ja)</li>
-          <li>Secure API key storage via Secret Service D-Bus API</li>
-          <li>Handler-based architecture with 51 handlers across 9 modules</li>
+          <li>Five languages: English, German, Spanish, Scottish Gaelic, and Japanese</li>
+          <li>Secure API key storage in the system keyring</li>
         </ul>
       </description>
     </release>
   </releases>
 
   <provides>
+    <id>com.system76.CosmicApplet</id>
     <binary>astra</binary>
   </provides>
 
