@@ -79,3 +79,5 @@ Developed on [System76 Thelio Major R3](https://tech-docs.system76.com/models/th
 
 
 **Made for the COSMIC Desktop community with ❤️** | GPL-3.0-or-later
+# Verify PR Test
+# Verify PR Test
