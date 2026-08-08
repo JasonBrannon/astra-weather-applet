@@ -7,7 +7,7 @@ Real-time weather applet for COSMIC Desktop with WebSocket updates, lightning al
 ![Hourly and Daily Forecasts](screenshots/3-Hourly-Daily-Forecasts.png)
 ![Live Weather View](screenshots/4-Live-Weather-View.png)
 
-**Requires:** [WeatherFlow Tempest](https://weatherflow.com/tempest-weather-system/) weather station + API key from [tempestwx.com/settings/tokens](https://tempestwx.com/settings/tokens)
+**Requires:** [WeatherFlow Tempest](https://weatherflow.com/tempest-weather-system/) weather station + API key from [tempestwx.com/settings/tokens](https://tempestwx.com/settings/tokens). Requires COSMIC Desktop v0.1.0 or later.
 
 ## Features
 
