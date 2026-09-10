@@ -27,11 +27,13 @@ impl AppState {
                 .padding([pad_v, pad_h * 2])
                 .align_y(Alignment::Center);
 
-            return cosmic::widget::autosize::autosize(
-                cosmic::widget::mouse_area(content).on_press(Message::ToggleWindow),
-                cosmic::widget::Id::unique(),
-            )
-            .into();
+            return self
+                .core
+                .applet
+                .autosize_window(
+                    cosmic::widget::mouse_area(content).on_press(Message::ToggleWindow),
+                )
+                .into();
         }
 
         // Check if we have connection issues (REST API or WebSocket failed)
@@ -71,11 +73,13 @@ impl AppState {
                 .padding([pad_v, pad_h * 2])
                 .align_y(Alignment::Center);
 
-            return cosmic::widget::autosize::autosize(
-                cosmic::widget::mouse_area(content).on_press(Message::ShowStationsView),
-                cosmic::widget::Id::unique(),
-            )
-            .into();
+            return self
+                .core
+                .applet
+                .autosize_window(
+                    cosmic::widget::mouse_area(content).on_press(Message::ShowStationsView),
+                )
+                .into();
         }
 
         // Determine if data is stale (both connections offline)
@@ -155,11 +159,10 @@ impl AppState {
             Message::ToggleWindow
         };
 
-        cosmic::widget::autosize::autosize(
-            cosmic::widget::mouse_area(content).on_press(click_message),
-            cosmic::widget::Id::unique(),
-        )
-        .into()
+        self.core
+            .applet
+            .autosize_window(cosmic::widget::mouse_area(content).on_press(click_message))
+            .into()
     }
 
     pub fn view_window(&self, id: cosmic::iced::window::Id) -> Element<'_, Message> {

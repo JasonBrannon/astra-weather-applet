@@ -2,7 +2,7 @@
 
 //! Lifecycle and timer handlers
 //!
-//! This module handles periodic timers, window management, and WebSocket polling.
+//! This module handles periodic timers, window management, and WebSocket lifecycle events.
 
 use crate::app::{AppState, Message};
 use cosmic::Task;
@@ -35,38 +35,23 @@ pub fn handle_forecast_tick(state: &mut AppState) -> Task<cosmic::Action<Message
     }
 }
 
-pub fn handle_websocket_poll(state: &mut AppState) -> Task<cosmic::Action<Message>> {
-    // Poll WebSocket event receiver
-    if let Some(ref mut receiver) = state.websocket_event_receiver {
-        match receiver.try_recv() {
-            Ok(event) => {
-                return state.update(Message::WebSocketEventReceived(event));
-            }
-            Err(tokio::sync::mpsc::error::TryRecvError::Empty) => {
-                // No events available, continue
-            }
-            Err(tokio::sync::mpsc::error::TryRecvError::Disconnected) => {
-                // Only log and update state once when first disconnected
-                if state.websocket_connected {
-                    tracing::warn!(
-                        "WebSocket event channel disconnected - will attempt reconnect in 5 seconds"
-                    );
-                    state.websocket_connected = false;
-                }
-                // Clear the receiver to stop polling
-                state.websocket_event_receiver = None;
-
-                // Schedule reconnection attempt after 5 seconds
-                return Task::perform(
-                    async {
-                        tokio::time::sleep(std::time::Duration::from_secs(5)).await;
-                    },
-                    |_| cosmic::Action::App(Message::WebSocketReconnect),
-                );
-            }
-        }
+pub fn handle_websocket_channel_disconnected(
+    state: &mut AppState,
+) -> Task<cosmic::Action<Message>> {
+    if state.websocket_connected {
+        tracing::warn!(
+            "WebSocket event channel disconnected - will attempt reconnect in 5 seconds"
+        );
+        state.websocket_connected = false;
     }
-    Task::none()
+    state.websocket_event_receiver = None;
+
+    Task::perform(
+        async {
+            tokio::time::sleep(std::time::Duration::from_secs(5)).await;
+        },
+        |_| cosmic::Action::App(Message::WebSocketReconnect),
+    )
 }
 
 pub fn handle_lightning_check(_state: &mut AppState) -> Task<cosmic::Action<Message>> {

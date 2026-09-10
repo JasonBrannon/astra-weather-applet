@@ -6,6 +6,7 @@ use cosmic::cosmic_config::CosmicConfigEntry;
 use cosmic::iced::Subscription;
 use cosmic::iced::time;
 use cosmic::{Element, Task, cosmic_config};
+use futures_util::StreamExt;
 use std::time::Duration;
 
 pub fn run() -> cosmic::iced::Result {
@@ -83,17 +84,33 @@ impl cosmic::Application for WeatherApplet {
                 crate::constants::FORECAST_REFRESH_INTERVAL_MINUTES as u64 * 60,
             ))
             .map(|_| Message::ForecastTick),
-            // Lightning flash animation update (WebSocket provides real-time lightning events)
-            time::every(Duration::from_millis(500)).map(|_| Message::UpdateLightningFlash),
             // Periodic health check - increased frequency for faster sleep/hibernate recovery
             // Checks network availability and WebSocket health every 5 seconds
             time::every(Duration::from_secs(5)).map(|_| Message::PeriodicHealthCheck),
         ];
 
-        // Add WebSocket event polling if receiver exists
-        if self.state.websocket_event_receiver.is_some() {
-            subscriptions
-                .push(time::every(Duration::from_millis(100)).map(|_| Message::WebSocketPoll));
+        // Animate only while a lightning flash is active. An unconditional timer causes the
+        // panel surface to redraw twice per second even when there is nothing to animate.
+        if self.state.lightning_flash_active {
+            subscriptions.push(
+                time::every(Duration::from_millis(500)).map(|_| Message::UpdateLightningFlash),
+            );
+        }
+
+        // Wait for WebSocket events instead of polling an empty queue every 100 ms. Besides
+        // wasting work, every poll enters iced's application update/redraw path.
+        if let Some(receiver) = &self.state.websocket_event_receiver {
+            let receiver = std::sync::Arc::clone(receiver);
+            let subscription_id = std::sync::Arc::as_ptr(&receiver) as usize;
+            let events = futures_util::stream::unfold(receiver, |receiver| async move {
+                let event = receiver.lock().await.recv().await;
+                event.map(|event| (Message::WebSocketEventReceived(event), receiver))
+            })
+            .chain(futures_util::stream::once(async {
+                Message::WebSocketChannelDisconnected
+            }));
+
+            subscriptions.push(Subscription::run_with_id(subscription_id, events));
         }
 
         Subscription::batch(subscriptions)

@@ -50,8 +50,13 @@ pub struct AppState {
     pub last_rain_start: Option<crate::weather::RainStartEvent>,
     pub last_rapid_wind: Option<crate::weather::RapidWindEvent>,
     pub websocket_task_handle: Option<std::sync::Arc<tokio::task::AbortHandle>>,
-    pub websocket_event_receiver:
-        Option<tokio::sync::mpsc::UnboundedReceiver<crate::weather::WebSocketEvent>>,
+    pub websocket_event_receiver: Option<
+        std::sync::Arc<
+            tokio::sync::Mutex<
+                tokio::sync::mpsc::UnboundedReceiver<crate::weather::WebSocketEvent>,
+            >,
+        >,
+    >,
     // Connection monitoring fields - Independent status indicators
     pub rest_api_status: crate::weather::RestApiStatus, // REST API connection status
     pub rest_api_last_success: Option<u64>,             // Timestamp of last successful API call
@@ -409,7 +414,8 @@ impl AppState {
 
                     // Create channel for WebSocket events
                     let (tx, rx) = tokio::sync::mpsc::unbounded_channel();
-                    self.websocket_event_receiver = Some(rx);
+                    self.websocket_event_receiver =
+                        Some(std::sync::Arc::new(tokio::sync::Mutex::new(rx)));
 
                     // Clone sender for connection status notification
                     let status_sender = tx.clone();

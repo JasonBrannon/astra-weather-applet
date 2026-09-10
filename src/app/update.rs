@@ -35,38 +35,21 @@ impl AppState {
                     Task::none()
                 }
             }
-            Message::WebSocketPoll => {
-                // Poll WebSocket event receiver
-                if let Some(ref mut receiver) = self.websocket_event_receiver {
-                    match receiver.try_recv() {
-                        Ok(event) => {
-                            return self.update(Message::WebSocketEventReceived(event));
-                        }
-                        Err(tokio::sync::mpsc::error::TryRecvError::Empty) => {
-                            // No events available, continue
-                        }
-                        Err(tokio::sync::mpsc::error::TryRecvError::Disconnected) => {
-                            // Only log and update state once when first disconnected
-                            if self.websocket_connected {
-                                tracing::warn!(
-                                    "WebSocket event channel disconnected - will attempt reconnect in 5 seconds"
-                                );
-                                self.websocket_connected = false;
-                            }
-                            // Clear the receiver to stop polling
-                            self.websocket_event_receiver = None;
-
-                            // Schedule reconnection attempt after 5 seconds
-                            return Task::perform(
-                                async {
-                                    tokio::time::sleep(std::time::Duration::from_secs(5)).await;
-                                },
-                                |_| cosmic::Action::App(Message::WebSocketReconnect),
-                            );
-                        }
-                    }
+            Message::WebSocketChannelDisconnected => {
+                if self.websocket_connected {
+                    tracing::warn!(
+                        "WebSocket event channel disconnected - will attempt reconnect in 5 seconds"
+                    );
+                    self.websocket_connected = false;
                 }
-                Task::none()
+                self.websocket_event_receiver = None;
+
+                Task::perform(
+                    async {
+                        tokio::time::sleep(std::time::Duration::from_secs(5)).await;
+                    },
+                    |_| cosmic::Action::App(Message::WebSocketReconnect),
+                )
             }
             Message::WebSocketReconnect => {
                 // Station Connection Manager - WebSocket Reconnect with exponential backoff

@@ -21,7 +21,7 @@ pub enum AppTab {
 pub enum Message {
     Tick,
     ForecastTick,
-    WebSocketPoll,
+    WebSocketChannelDisconnected,
     #[allow(dead_code)]
     LightningCheck,
     ToggleWindow,
